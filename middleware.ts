@@ -24,10 +24,16 @@ export async function middleware(request: NextRequest) {
   try {
     // Verify token without database access
     const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key"
-    jwt.verify(token, JWT_SECRET)
+    const decoded: any = jwt.verify(token, JWT_SECRET)
 
-    // Token is valid, proceed
-    return NextResponse.next()
+    // Redirect based on user status or roles (e.g., check if onboarded)
+    if (decoded.isOnboarded) {
+      // If the user is onboarded, redirect to the dashboard
+      return NextResponse.redirect(new URL("/dashboard", request.url))
+    } else {
+      // If the user is not onboarded, redirect to the onboarding page
+      return NextResponse.redirect(new URL("/onboarding", request.url))
+    }
   } catch (error) {
     // Error verifying token, redirect to auth page
     const response = NextResponse.redirect(new URL("/", request.url))

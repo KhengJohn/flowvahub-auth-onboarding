@@ -40,7 +40,7 @@ pnpm install
 3. Create a `.env.local` file in the root directory:
 
 \`\`\`
-MONGODB_URI=mongodb://localhost:27017/flowva
+MONGODB_URI=mongodb://localhost:27017/
 JWT_SECRET=your-super-secret-jwt-key-change-in-production
 \`\`\`
 

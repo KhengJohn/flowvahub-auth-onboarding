@@ -7,7 +7,8 @@ import OnboardingData from "@/models/OnboardingData"
 export async function POST(request: Request) {
   try {
     // Get token from cookies
-    const token = cookies().get("token")?.value
+    const cookieStore = await cookies()
+    const token = cookieStore.get("token")?.value
 
     if (!token) {
       return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 })
@@ -50,7 +51,8 @@ export async function POST(request: Request) {
 export async function GET(request: Request) {
   try {
     // Get token from cookies
-    const token = cookies().get("token")?.value
+    const cookieStore = await cookies()
+    const token = cookieStore.get("token")?.value
 
     if (!token) {
       return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 })
